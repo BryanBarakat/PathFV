@@ -1,0 +1,66 @@
+.error-container {
+  color: #f4f4f4;
+  background-color: #252525;
+  border-radius: 3px;
+  border: 1px solid rgba(209, 209, 39, 0.699);
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  right: 0%;
+  top: 25%;
+  animation: come-in 300ms linear forwards;
+  padding: 12px 32px 12px 32px;
+  font-size: 10px;
+  font-weight: lighter;
+  z-index: 10;
+}
+
+.error-container img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+@keyframes come-in {
+  from {
+    right: -5%;
+  }
+  to {
+    right: -0.1%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .error-container {
+    padding: 1px 28px 1px 28px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .error-container {
+    padding: 0.1px 14px 0.1px 14px;
+    font-size: 8px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .error-container {
+    padding: 0px 14px 0px 14px;
+    font-size: 6px;
+  }
+
+  .error-container img {
+    width: 14px;
+    height: 14px;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .error-container {
+    padding: 0px 14px 0px 14px;
+    font-size: 4px;
+    top: 5%;
+  }
+
+  .error-container img {
+    width: 8px;
+    height: 8px;
+  }
+}

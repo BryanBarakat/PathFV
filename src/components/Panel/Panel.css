@@ -1,0 +1,317 @@
+body {
+  overflow: hidden;
+}
+
+.panel-container {
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  z-index: 3;
+  cursor: grab;
+  left: 24px;
+  bottom: 24px;
+  width: 0px;
+  height: 0px;
+  background-color: #303030;
+  border: 2px solid #f4f4f4;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 15px;
+  transition: border 300ms ease-in-out;
+  animation: visiblePanel 200ms linear forwards;
+}
+
+@keyframes visiblePanel {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  50% {
+    width: 140px;
+    height: 95px;
+  }
+  100% {
+    width: 280px;
+    height: 190px;
+  }
+}
+
+.panel-container:active {
+  border: 2px solid gold;
+}
+
+.panel-container .drag-obj {
+  position: absolute;
+  right: 3%;
+  top: 4%;
+  width: 16px;
+  height: 16px;
+  cursor: grab;
+  filter: invert(100%);
+  -webkit-user-drag: none;
+}
+
+.panel-container .drag-obj2 {
+  position: absolute;
+  left: 3%;
+  top: 4%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  z-index: 6;
+}
+
+.panel-container .nav-bar-panel img {
+  width: 16px;
+  height: 16px;
+  filter: invert(100%);
+  margin: 0;
+  padding: 6px 3px 6px 3px;
+  -webkit-user-drag: none;
+  cursor: grab;
+  transition: all 300ms ease-in-out;
+}
+
+.nav-bar-panel {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 1px;
+  bottom: 3.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 1px solid #f4f4f4;
+}
+
+.panel-container .nav-bar-panel img:hover {
+  scale: 1.02;
+  filter: invert(81%) sepia(27%) saturate(3405%) hue-rotate(38deg)
+    brightness(108%) contrast(106%);
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.img-1:hover {
+  filter: invert(78%) sepia(59%) saturate(3377%) hue-rotate(68deg)
+    brightness(109%) contrast(87%);
+}
+
+.img-2:hover {
+  filter: invert(72%) sepia(31%) saturate(6318%) hue-rotate(303deg)
+    brightness(106%) contrast(91%);
+}
+
+.img-3:hover {
+  filter: invert(78%) sepia(59%) saturate(3377%) hue-rotate(68deg)
+    brightness(109%) contrast(87%);
+}
+.img-4:hover {
+  filter: invert(55%) sepia(99%) saturate(592%) hue-rotate(325deg)
+    brightness(100%) contrast(103%);
+}
+.img-5:hover {
+  filter: invert(89%) sepia(15%) saturate(1129%) hue-rotate(95deg)
+    brightness(100%) contrast(103%);
+}
+.img-6:hover {
+  filter: invert(73%) sepia(51%) saturate(6278%) hue-rotate(160deg)
+    brightness(103%) contrast(104%);
+}
+.img-7:hover {
+  filter: invert(13%) sepia(99%) saturate(7152%) hue-rotate(5deg)
+    brightness(105%) contrast(115%);
+}
+.img-8:hover {
+  filter: invert(82%) sepia(59%) saturate(3510%) hue-rotate(6deg)
+    brightness(112%) contrast(105%);
+}
+.img-9:hover {
+  filter: invert(50%) sepia(9%) saturate(5730%) hue-rotate(38deg)
+    brightness(95%) contrast(98%);
+}
+
+.start-content,
+.end-content,
+.wall-content,
+.weight-content,
+.bomb-content,
+.restart-content,
+.run-content,
+.configure-content,
+.erase-content {
+  opacity: 0.3;
+}
+
+.main-content-panel {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+}
+
+.main-content-panel h5 {
+  font-weight: 600;
+  animation: render 300ms linear forwards;
+  cursor: grab;
+  text-align: center;
+}
+
+.main-content-panel span h5 {
+  font-weight: 100;
+  font-size: 11px;
+  font-style: italic;
+  animation: render 300ms linear forwards;
+  cursor: grab;
+}
+
+@keyframes render {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .panel-container {
+    bottom: 0%;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .panel-container {
+    bottom: 0%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .panel-container {
+    top: 55%;
+    animation: none;
+    width: 200px;
+    height: 160px;
+  }
+
+  .panel-container .drag-obj {
+    top: -5%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .panel-container .drag-obj2 {
+    top: -5%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .main-content-panel h5 {
+    font-size: smaller;
+  }
+
+  .main-content-panel span h5 {
+    font-size: 8px;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 12px;
+    height: 12px;
+    padding: 6px 2px 6px 2px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .panel-container {
+    top: 50%;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .panel-container {
+    top: 60%;
+    width: 160px;
+    height: 120px;
+  }
+
+  .main-content-panel h5 {
+    font-size: xx-small;
+  }
+
+  .panel-container .drag-obj {
+    top: -12%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .panel-container .drag-obj2 {
+    top: -12%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .main-content-panel span h5 {
+    font-size: 6px;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 10px;
+    height: 10px;
+    padding: 6px 1.3px 6px 1.3px;
+  }
+
+  .nav-bar-panel {
+    gap: 0px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .panel-container {
+    width: 100px;
+    height: 60px;
+  }
+
+  .nav-bar-panel {
+    gap: 0px;
+    bottom: -15%;
+  }
+
+  .panel-container .drag-obj {
+    top: -30%;
+    width: 6px;
+    height: 6px;
+  }
+
+  .panel-container .drag-obj2 {
+    top: -30%;
+    width: 6px;
+    height: 6px;
+  }
+
+  .main-content-panel span h5 {
+    font-size: 4px;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 5px;
+    height: 5px;
+    padding: 6px 1.3px 6px 1.3px;
+  }
+  .main-content-panel h5 {
+    font-size: 5px;
+  }
+
+  .main-content-panel {
+    top: 20%;
+  }
+}
+
+@media only screen and (max-height: 700px) {
+  .panel-container {
+    visibility: hidden;
+  }
+}

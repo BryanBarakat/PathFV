@@ -1,0 +1,8 @@
+* {
+  user-select: none;
+  cursor: url("./assets/clickz.png"), default;
+}
+
+body {
+  overflow: hidden;
+}

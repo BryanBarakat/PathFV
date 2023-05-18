@@ -1,0 +1,405 @@
+.container-tut {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  animation: configureIt 300ms linear forwards;
+  z-index: 5;
+}
+
+:root {
+  --ft-size: 16px;
+  --color-text: #303030;
+}
+
+.container-tut div {
+  padding: 32px 64px 32px 64px;
+  position: absolute;
+  top: 54%;
+  left: 50%;
+  width: 800px;
+  height: 550px;
+  transform: translate(-50%, -50%);
+  background-color: #f4f4f4;
+  border: 2px solid #202020;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.container-tut h4 {
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  font-size: 16px;
+  font-weight: 300;
+  color: #303030;
+}
+
+.container-tut .sub-container1 h1,
+.container-tut .sub-container2 h1,
+.container-tut .sub-container3 h1,
+.container-tut .sub-container4 h1,
+.container-tut .sub-container5 h1,
+.container-tut .sub-container6 h1,
+.container-tut .sub-container7 h1 {
+  color: var(--color-text);
+}
+
+.container-tut .sub-container7 .pathfv-tit {
+  font-size: 70px;
+}
+
+.container-tut .sub-container1 h2,
+.container-tut .sub-container2 h2,
+.container-tut .sub-container3 h2,
+.container-tut .sub-container4 h2,
+.container-tut .sub-container5 h2,
+.container-tut .sub-container6 h2,
+.container-tut .sub-container7 h2 {
+  font-weight: 595;
+  color: var(--color-text);
+}
+
+.container-tut .sub-container2 {
+  font-size: 0.9rem;
+}
+
+.container-tut .sub-container5,
+.container-tut .sub-container6 {
+  font-size: 0.825rem;
+}
+
+.container-tut .sub-container3 {
+  font-size: 1.05rem;
+}
+
+.container-tut .sub-container4 {
+  font-size: 0.82rem;
+}
+
+.container-tut .sub-container4 h3 span {
+  font-weight: bold;
+  color: var(--color-text);
+}
+
+.container-tut .sub-container1 h3,
+.container-tut .sub-container2 h3,
+.container-tut .sub-container3 h3,
+.container-tut .sub-container4 h3,
+.container-tut .sub-container5 h3,
+.container-tut .sub-container6 h3,
+.container-tut .sub-container7 h3 {
+  font-weight: 350;
+  color: var(--color-text);
+}
+
+.image-page-1,
+.image-page-2,
+.image-page-3 {
+  max-width: 160px;
+  max-height: 160px;
+  -webkit-user-drag: none;
+}
+
+.image-page-4,
+.image-page-5 {
+  max-width: 300px;
+  max-height: 300px;
+  -webkit-user-drag: none;
+}
+
+.container-tut .skip {
+  position: absolute;
+  left: 30%;
+  top: 79%;
+  transform: translate(-50%, -50%);
+}
+
+.container-tut .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.buttons .navigate {
+  position: absolute;
+  left: 71.5%;
+  top: 79%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 12px;
+}
+
+.prev-but {
+  margin-left: -134px;
+}
+
+.buttons button {
+  border: 2px solid var(--color-text);
+  background-color: aqua;
+  color: var(--color-text);
+  padding: 12px 32px 12px 32px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.buttons button:hover {
+  box-shadow: 0px 1px 12px grey inset;
+}
+
+@keyframes configureIt {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .container-tut div {
+    padding: 32px 64px 32px 64px;
+    width: 600px;
+    height: 350px;
+    font-size: 1.1rem;
+  }
+
+  .container-tut h3,
+  .container-tut h4,
+  .container-tut h1,
+  .container-tut h2 {
+    font-size: smaller;
+  }
+
+  .image-page-1,
+  .image-page-2,
+  .image-page-3 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    width: 160px;
+    height: 120px;
+  }
+
+  .buttons button {
+    padding: 9px 18px 9px 18px;
+    font-size: smaller;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .container-tut div {
+    top: 70%;
+    left: 50%;
+  }
+
+  .container-tut .skip,
+  .buttons .navigate {
+    top: 108%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .container-tut div {
+    padding: 32px 64px 32px 64px;
+    width: 450px;
+    height: 450px;
+    font-size: 1.1rem;
+    top: 10%;
+  }
+
+  .container-tut .skip,
+  .buttons .navigate {
+    top: 67%;
+  }
+
+  .container-tut h3,
+  .container-tut h4,
+  .container-tut h1,
+  .container-tut h2 {
+    font-size: smaller;
+  }
+
+  .image-page-1,
+  .image-page-2,
+  .image-page-3 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    width: 160px;
+    height: 120px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .container-tut div {
+    padding: 32px 64px 32px 64px;
+    width: 300px;
+    height: 450px;
+    font-size: 1.1rem;
+    top: 10%;
+  }
+
+  .container-tut .skip,
+  .buttons .navigate {
+    top: 72%;
+  }
+
+  .buttons button {
+    padding: 4px 9px 4px 9px;
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .container-tut div {
+    padding: 32px 64px 32px 64px;
+    width: 200px;
+    height: 450px;
+    font-size: 1.1rem;
+    top: -35%;
+  }
+
+  .container-tut .skip,
+  .buttons .navigate {
+    top: 72%;
+  }
+
+  .buttons button {
+    padding: 2px 4px 2px 4px;
+    font-size: 10px;
+  }
+
+  .image-page-1,
+  .image-page-2,
+  .image-page-3 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    width: 160px;
+    height: 120px;
+  }
+
+  .container-tut h4 {
+    font-size: 14px;
+  }
+
+  .container-tut .sub-container1 h1,
+  .container-tut .sub-container2 h1,
+  .container-tut .sub-container3 h1,
+  .container-tut .sub-container4 h1,
+  .container-tut .sub-container5 h1,
+  .container-tut .sub-container6 h1,
+  .container-tut .sub-container7 h1 {
+    color: var(--color-text);
+  }
+
+  .container-tut .sub-container7 .pathfv-tit {
+    font-size: 40px;
+  }
+
+  .container-tut .sub-container2 {
+    font-size: 0.8rem;
+  }
+
+  .container-tut .sub-container5,
+  .container-tut .sub-container6 {
+    font-size: 0.7rem;
+  }
+
+  .container-tut .sub-container3 {
+    font-size: 0.8rem;
+  }
+
+  .container-tut .sub-container4 {
+    font-size: 0.65rem;
+  }
+
+  .container-tut .sub-container1 {
+    font-size: 0.9rem;
+  }
+}
+@media only screen and (max-width: 425px) {
+  .container-tut div {
+    padding: 32px 64px 32px 64px;
+    width: 140px;
+    height: 400px;
+    font-size: 1.1rem;
+    top: -35%;
+  }
+
+  .container-tut .skip,
+  .buttons .navigate {
+    top: 57%;
+  }
+
+  .buttons button {
+    padding: 2px 4px 2px 4px;
+    font-size: 8px;
+  }
+
+  .image-page-1,
+  .image-page-2,
+  .image-page-3 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    width: 120px;
+    height: 80px;
+  }
+
+  .container-tut h4 {
+    font-size: 14px;
+  }
+
+  .container-tut .sub-container1 h1,
+  .container-tut .sub-container2 h1,
+  .container-tut .sub-container3 h1,
+  .container-tut .sub-container4 h1,
+  .container-tut .sub-container5 h1,
+  .container-tut .sub-container6 h1,
+  .container-tut .sub-container7 h1 {
+    color: var(--color-text);
+  }
+
+  .container-tut .sub-container7 .pathfv-tit {
+    font-size: 40px;
+  }
+
+  .container-tut .sub-container2 {
+    font-size: 0.7rem;
+  }
+
+  .container-tut .sub-container5,
+  .container-tut .sub-container6 {
+    font-size: 0.6rem;
+  }
+
+  .container-tut .sub-container3 {
+    font-size: 0.7rem;
+  }
+
+  .container-tut .sub-container4 {
+    font-size: 0.53rem;
+  }
+
+  .container-tut .sub-container1 {
+    font-size: 0.85rem;
+  }
+
+  .container-tut .sub-container7 {
+    font-size: 0.8rem;
+  }
+}

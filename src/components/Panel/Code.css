@@ -1,0 +1,232 @@
+.panel-container2 {
+  display: block;
+  position: absolute;
+  overflow: scroll;
+  scroll-behavior: smooth;
+  z-index: 3;
+  cursor: grab;
+  left: 24px;
+  top: 13%;
+  width: 0px;
+  height: 0px;
+  background-color: #303030;
+  border: 2px solid #f4f4f4;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 15px;
+  transition: border 300ms ease-in-out;
+  animation: visiblePanel2 200ms linear forwards;
+}
+
+.code .codeImg {
+  -webkit-user-drag: none;
+  padding-top: 34px;
+  cursor: grab;
+}
+
+.code .codeImg-error {
+  -webkit-user-drag: none;
+  padding-top: 40px;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: invert(100%);
+  cursor: grab;
+}
+
+.code h3 {
+  position: absolute;
+  top: 1.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: grab;
+}
+
+.code h2 {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: center;
+  cursor: grab;
+}
+
+.code .closePanel2 {
+  position: absolute;
+  left: 3%;
+  top: 1.5%;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  -webkit-user-drag: none;
+}
+
+.panel-container2:active {
+  border: 2px solid gold;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em;
+  height: 0.8em;
+}
+::-webkit-scrollbar-button {
+  background: #303030;
+}
+::-webkit-scrollbar-track-piece {
+  background: #888;
+}
+::-webkit-scrollbar-thumb {
+  background: #252525;
+}
+
+@keyframes visiblePanel2 {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  50% {
+    width: 140px;
+    height: 262px;
+  }
+  100% {
+    width: 280px;
+    height: 525px;
+  }
+}
+
+@keyframes visiblePanel-neo {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  50% {
+    width: 48vw;
+    height: 130px;
+  }
+  100% {
+    width: 96vw;
+    height: 260px;
+  }
+}
+
+@keyframes visiblePanel-initial {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  50% {
+    width: 140px;
+    height: 225px;
+  }
+  100% {
+    width: 280px;
+    height: 450px;
+  }
+}
+
+.panel-container2 .drag-object-code {
+  position: absolute;
+  right: 3%;
+  top: 1.5%;
+}
+
+.panel-container2 .drag-object-code img {
+  width: 16px;
+  height: 16px;
+  cursor: grab;
+  filter: invert(100%);
+  -webkit-user-drag: none;
+}
+
+@media only screen and (max-width: 1350px) {
+  .panel-container2 {
+    top: 15%;
+    animation: visiblePanel-initial 200ms linear forwards;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .panel-container2 {
+    top: 110%;
+    animation: visiblePanel-neo 200ms linear forwards;
+  }
+
+  .code .codeImg-error {
+    width: 60px;
+    height: 60px;
+  }
+
+  .code h3 {
+    top: 1.5%;
+  }
+
+  .code h2 {
+    top: 72%;
+  }
+
+  .panel-container2 .drag-object-code {
+    top: 3.5%;
+  }
+
+  .code .closePanel2 {
+    top: 3.5%;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .panel-container2 .drag-object-code {
+    top: 1%;
+  }
+
+  .code .closePanel2 {
+    top: 1%;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .panel-container2 {
+    top: -70%;
+    margin-left: -12px;
+    left: 0;
+  }
+
+  .panel-container2 .drag-object-code {
+    top: -6%;
+  }
+
+  .code .closePanel2 {
+    top: -6%;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .panel-container2 {
+    top: -80%;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .panel-container2 {
+    top: -160%;
+    margin-left: -20px;
+  }
+}
+
+@media only screen and (max-height: 700px) and (max-width: 500px) {
+  .panel-container2 {
+    top: -180%;
+    margin-right: 50%;
+  }
+}
+
+@media only screen and (max-height: 700px) {
+  .panel-container2 {
+    visibility: hidden;
+  }
+}

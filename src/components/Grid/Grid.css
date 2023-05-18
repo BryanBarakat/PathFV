@@ -1,0 +1,287 @@
+.board {
+  width: 100%;
+  height: calc(100vh - min(20vh, 100px));
+  background-color: #afd8f8;
+  display: grid;
+  grid-template-rows: repeat(25, 1fr);
+  grid-template-columns: repeat(50, 1fr);
+  gap: 1px;
+  position: static;
+  z-index: -1;
+}
+
+.board .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  overflow: hidden;
+  border: 1px solid rgb(175, 216, 248);
+}
+
+.image-wall {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  animation: wall-render 200ms linear forwards;
+  filter: invert(14%) sepia(67%) saturate(785%) hue-rotate(158deg)
+    brightness(93%) contrast(93%);
+}
+
+.image-weight {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+  animation: weight-render 200ms linear forwards;
+}
+
+/* .visited {
+  border: 1px solid rgb(175, 216, 248);
+} */
+
+@keyframes render-visited {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(0, 0, 66, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(17, 104, 217, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(0, 217, 159, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(0, 190, 218, 0.75);
+  }
+}
+
+/* .visited2 {
+  border: 1px solid rgb(201, 95, 95);
+} */
+
+@keyframes render-visited2 {
+  0% {
+    transform: scale(0.3);
+    background-color: rgba(41, 4, 24, 0.75);
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: rgba(97, 0, 20, 0.75);
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: rgba(216, 5, 141, 0.75);
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: rgba(178, 67, 255, 0.75);
+  }
+}
+
+.path {
+  /* background: #fffe6a !important ; */
+  /* transition: all 300ms ease-out; */
+}
+
+@keyframes render-visited-path {
+  0% {
+    transform: scale(0.3);
+    background-color: #ffff1f;
+    border-radius: 100%;
+  }
+
+  50% {
+    background-color: #ffff00;
+  }
+
+  75% {
+    transform: scale(1.2);
+    background-color: #dbdb38;
+  }
+
+  100% {
+    transform: scale(1);
+    background-color: #ffff00;
+  }
+}
+
+.image-grid {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  pointer-events: none;
+}
+
+@keyframes wall-render {
+  0% {
+    width: 8px;
+    height: 8px;
+  }
+  33% {
+    width: 16px;
+    height: 16px;
+  }
+  66% {
+    width: 24px;
+    height: 24px;
+  }
+  100% {
+    width: 34px;
+    height: 34px;
+  }
+}
+
+@keyframes weight-render {
+  0% {
+    width: 4px;
+    height: 4px;
+  }
+  33% {
+    width: 8px;
+    height: 8px;
+  }
+  66% {
+    width: 16px;
+    height: 16px;
+  }
+  100% {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+@keyframes weight-render-res {
+  0% {
+    width: 1px;
+    height: 1px;
+  }
+  50% {
+    width: 2px;
+    height: 2px;
+  }
+  100% {
+    width: 4px;
+    height: 4px;
+  }
+}
+@keyframes weight-render-res2 {
+  0% {
+    width: 3px;
+    height: 3px;
+  }
+  50% {
+    width: 6px;
+    height: 6px;
+  }
+  100% {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.weighted,
+.targetted,
+.started,
+.bombed {
+  filter: invert(7%) sepia(86%) saturate(6584%) hue-rotate(280deg)
+    brightness(65%) contrast(99%);
+}
+
+.started {
+  transition: all 300ms ease-in;
+}
+
+@media only screen and (max-width: 1300px) {
+  .image-grid {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .board {
+    position: absolute;
+    top: 36%;
+    transform: translateY(-50%);
+    height: 50vh;
+  }
+
+  .image-grid {
+    width: 12px;
+    height: 12px;
+  }
+  .image-weight {
+    width: 4px;
+    height: 4px;
+    animation: weight-render-res2 200ms linear forwards;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .board {
+    top: 60%;
+    transform: translateY(-50%);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .board {
+    height: 45vh;
+  }
+
+  .image-grid {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .board {
+    top: 65%;
+    height: 30vh;
+  }
+
+  .image-grid {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .board {
+    height: 26vh;
+  }
+
+  .image-grid {
+    width: 4px;
+    height: 4px;
+  }
+
+  .image-weight {
+    width: 1px;
+    height: 1px;
+    animation: weight-render-res 200ms linear forwards;
+  }
+}
+
+@media only screen and (max-height: 800px) and (max-width: 500px) {
+  .board {
+    top: 50%;
+    width: 90%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

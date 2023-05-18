@@ -1,0 +1,73 @@
+.metrics-container {
+  color: #f4f4f4;
+  background-color: #252525;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border: 1px solid rgba(209, 209, 39, 0.699);
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  right: 0%;
+  top: 25%;
+  animation: come-in 300ms linear forwards;
+  padding: 18px 32px 18px 32px;
+  font-size: 10px;
+  font-weight: lighter;
+  z-index: 10;
+}
+
+.metrics-container img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+@keyframes come-in {
+  from {
+    right: -5%;
+  }
+  to {
+    right: -0.1%;
+  }
+}
+
+@keyframes come-in2 {
+  from {
+    right: -15%;
+  }
+  to {
+    right: -8%;
+  }
+}
+
+.metrics-container span {
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 1000px) {
+  .metrics-container {
+    top: 110%;
+    padding-bottom: 50px;
+  }
+  .metrics-container h2,
+  .metrics-container span {
+    height: 20px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .metrics-container {
+    top: -65%;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .metrics-container {
+    top: -75%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .metrics-container {
+    top: -150%;
+    font-size: 8px;
+    animation: come-in2 300ms linear forwards;
+  }
+}

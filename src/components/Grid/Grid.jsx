@@ -93,26 +93,23 @@ export const Grid = () => {
   const getPathWay = () => {
     let getId = document.getElementById("start-btn-grid");
     if (
-      start.current.x - 1 + start.current.y * 50 < refArray.length &&
-      start.current.x - 1 + start.current.y * 50 >= 0 &&
+      start.current.x + start.current.y * 50 - 1 >= 0 &&
       refArray[
-        start.current.x - 1 + start.current.y * 50
+        start.current.x + start.current.y * 50 - 1
       ].current.classList.contains("path")
     ) {
-      getId.style.transform = "rotate(180deg)";
+      getId.style.transform = "rotate(-180deg)";
     } else if (
-      start.current.x + (start.current.y - 1 * 50) < refArray.length &&
-      start.current.x + (start.current.y - 1 * 50) >= 0 &&
+      start.current.x + start.current.y * 50 - 50 >= 0 &&
       refArray[
-        start.current.x + (start.current.y - 1 * 50)
+        start.current.x + start.current.y * 50 - 50
       ].current.classList.contains("path")
     ) {
       getId.style.transform = "rotate(-90deg)";
     } else if (
-      start.current.x + (start.current.y + 1 * 50) < refArray.length &&
-      start.current.x + (start.current.y + 1 * 50) >= 0 &&
+      start.current.x + start.current.y * 50 + 50 < refArray.length &&
       refArray[
-        start.current.x + (start.current.y + 1 * 50)
+        start.current.x + start.current.y * 50 + 50
       ].current.classList.contains("path")
     ) {
       getId.style.transform = "rotate(90deg)";
@@ -182,9 +179,7 @@ export const Grid = () => {
     }
   };
 
-  var BombExploration = false;
-
-  function DFS(
+  function DFS_bomb(
     graph,
     hashmap,
     prevmap,
@@ -193,116 +188,40 @@ export const Grid = () => {
     class_name,
     class_name2
   ) {
-    let numNode = 0;
     let timeDateBefore = new Date(Date.now());
-    let bool_operation;
-    let response = [];
     let stack = [start];
+    let response = [];
     let count = 0;
+    let numNode = 0;
     let val = speedMeter();
     hashmap[`${start.x}-${start.y}`] = true;
 
     while (stack.length > 0) {
       count += 1;
       let c = stack.pop();
-      refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
-        count * val[0]
-      }ms`;
-      refArray[c.x + c.y * 50].current.classList.add(class_name);
-      refArray[c.x + c.y * 50].current.style[
-        "animation"
-      ] = `render-visited ${animationTime}s ease-out ${
-        count * val[0]
-      }ms alternate 1 forwards running`;
-
-      if (c.x === bomb.current.x && c.y === bomb.current.y) {
-        response.push(c, count, prevmap, val);
-        bool_operation = true;
-        numNode = count;
-        break;
-      }
-
-      const neighbors = [
-        { x: c.x + 1, y: c.y },
-        { x: c.x - 1, y: c.y },
-        { x: c.x, y: c.y + 1 },
-        { x: c.x, y: c.y - 1 },
-      ];
-
-      for (let neighbor of neighbors) {
-        const { x, y } = neighbor;
-
-        if (
-          x >= 0 &&
-          x < 50 &&
-          y >= 0 &&
-          y < 25 &&
-          !hashmap[`${x}-${y}`] &&
-          !graph[y][x].iswall
-        ) {
-          stack.push(neighbor);
-          prevmap[`${x}-${y}`] = { ...c };
-          hashmap[`${x}-${y}`] = true;
-        }
-      }
-    }
-
-    let counter = 0;
-    let newprevmap = {};
-    let c = 0;
-
-    function change() {
-      let newhashmap = {};
-
-      for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[i].length; j++) {
-          newprevmap[`${j}-${i}`] = null;
-          newhashmap[`${j}-${i}`] = false;
-        }
-      }
-
-      newhashmap[`${bomb.current.x}-${bomb.current.y}`] = true;
-      let stack = [bomb.current];
-
-      while (stack.length > 0) {
-        counter += 1;
-        c = stack.pop();
+      if (!refArray[c.x + c.y * 50].current.classList.contains(class_name)) {
         refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
-          counter * val[0]
+          count * val[0]
         }ms`;
-
-        if (!refArray[c.x + c.y * 50].current.classList.contains(class_name)) {
-          numNode += 1;
-        }
-
-        refArray[c.x + c.y * 50].current.classList.add(class_name2);
+        refArray[c.x + c.y * 50].current.classList.add(class_name);
         refArray[c.x + c.y * 50].current.style[
           "animation"
-        ] = `render-visited2 ${animationTime}s ease-out ${
-          counter * val[0]
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * val[0]
         }ms alternate 1 forwards running`;
 
-        if (c.x === target.x && c.y === target.y) {
-          response.push(c, counter, newprevmap);
-          let timeDateAfter = new Date(Date.now());
-          setRuntime(
-            (
-              timeDateAfter.getTime() -
-              timeDateBefore.getTime() -
-              count * val[0]
-            ).toString()
-          );
-          setNumNodes(numNode);
-          return true;
+        if (c.x == bomb.current.x && c.y == bomb.current.y) {
+          response.push(c, count, val, prevmap);
+          numNode = count;
+          break;
         }
 
         const neighbors = [
-          { x: c.x + 1, y: c.y },
           { x: c.x - 1, y: c.y },
           { x: c.x, y: c.y + 1 },
+          { x: c.x + 1, y: c.y },
           { x: c.x, y: c.y - 1 },
         ];
-
         for (let neighbor of neighbors) {
           const { x, y } = neighbor;
 
@@ -311,16 +230,90 @@ export const Grid = () => {
             x < 50 &&
             y >= 0 &&
             y < 25 &&
-            !newhashmap[`${x}-${y}`] &&
+            !refArray[x + y * 50].current.classList.contains(class_name) &&
             !graph[y][x].iswall
           ) {
             stack.push(neighbor);
-            newprevmap[`${x}-${y}`] = { ...c };
-            newhashmap[`${x}-${y}`] = true;
+            prevmap[`${x}-${y}`] = { ...c };
+            hashmap[`${x}-${y}`] = true;
           }
         }
       }
+    }
+    let counter = 0;
+    let newprevmap = {};
 
+    function change() {
+      let newhashmap = {};
+      for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length; j++) {
+          newprevmap[`${j}-${i}`] = null;
+          newhashmap[`${j}-${i}`] = false;
+        }
+      }
+      for (const element of refArray) {
+        element.current.style["transition-delay"] = `${0}ms`;
+        element.current.style["animation"] = `none`;
+        element.current.style["background"] = "white";
+        // element.current.classList.remove(class_name);
+      }
+      newhashmap[`${bomb.current.x}-${bomb.current.y}`] = true;
+      let stack = [bomb.current];
+      while (stack.length > 0) {
+        counter += 1;
+        let c = stack.pop();
+        if (!refArray[c.x + c.y * 50].current.classList.contains(class_name)) {
+          numNode += 1;
+        }
+        if (!refArray[c.x + c.y * 50].current.classList.contains(class_name2)) {
+          refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
+            counter * val[0]
+          }ms`;
+          refArray[c.x + c.y * 50].current.classList.add(class_name2);
+          refArray[c.x + c.y * 50].current.style[
+            "animation"
+          ] = `render-visited2 ${animationTime}s ease-out ${
+            counter * val[0]
+          }ms alternate 1 forwards running`;
+
+          if (c.x == end.current.x && c.y == end.current.y) {
+            response.push(c, counter, newprevmap);
+            let timeDateAfter = new Date(Date.now());
+            setRuntime(
+              (
+                timeDateAfter.getTime() -
+                timeDateBefore.getTime() -
+                count * val[0]
+              ).toString()
+            );
+            setNumNodes(numNode);
+            return true;
+          }
+
+          const neighbors = [
+            { x: c.x - 1, y: c.y },
+            { x: c.x, y: c.y + 1 },
+            { x: c.x + 1, y: c.y },
+            { x: c.x, y: c.y - 1 },
+          ];
+          for (let neighbor of neighbors) {
+            const { x, y } = neighbor;
+
+            if (
+              x >= 0 &&
+              x < 50 &&
+              y >= 0 &&
+              y < 25 &&
+              !refArray[x + y * 50].current.classList.contains(class_name2) &&
+              !graph[y][x].iswall
+            ) {
+              stack.push(neighbor);
+              newprevmap[`${x}-${y}`] = { ...c };
+              newhashmap[`${x}-${y}`] = true;
+            }
+          }
+        }
+      }
       return false;
     }
 
@@ -333,9 +326,8 @@ export const Grid = () => {
     }
 
     var final_res = null;
-
     x().then(() => {
-      if (change() === true && bool_operation) {
+      if (change() === true) {
         final_res = response;
         return response;
       } else {
@@ -351,6 +343,64 @@ export const Grid = () => {
     }
 
     return fin();
+  }
+
+  function DFS(graph, hashmap, prevmap, start, target, class_name) {
+    let timeDateBefore = new Date(Date.now());
+    let stack = [start];
+    let count = 0;
+    let val = speedMeter();
+    hashmap[`${start.x}-${start.y}`] = true;
+
+    while (stack.length > 0) {
+      count += 1;
+      let c = stack.pop();
+      if (!refArray[c.x + c.y * 50].current.classList.contains(class_name)) {
+        refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
+          count * val[0]
+        }ms`;
+        refArray[c.x + c.y * 50].current.classList.add(class_name);
+        refArray[c.x + c.y * 50].current.style[
+          "animation"
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * val[0]
+        }ms alternate 1 forwards running`;
+
+        if (c.x === target.x && c.y === target.y) {
+          let timeDateAfter = new Date(Date.now());
+          setRuntime(
+            (timeDateAfter.getTime() - timeDateBefore.getTime()).toString()
+          );
+          setNumNodes(count);
+          return [c, count + rest, val, prevmap];
+        }
+
+        const neighbors = [
+          { x: c.x - 1, y: c.y },
+          { x: c.x, y: c.y + 1 },
+          { x: c.x + 1, y: c.y },
+          { x: c.x, y: c.y - 1 },
+        ];
+        for (let neighbor of neighbors) {
+          const { x, y } = neighbor;
+
+          if (
+            x >= 0 &&
+            x < 50 &&
+            y >= 0 &&
+            y < 25 &&
+            !refArray[x + y * 50].current.classList.contains(class_name) &&
+            !graph[y][x].iswall
+          ) {
+            stack.push(neighbor);
+            prevmap[`${x}-${y}`] = { ...c };
+            hashmap[`${x}-${y}`] = true;
+          }
+        }
+      }
+    }
+
+    return null;
   }
 
   function BFS_bomb(
@@ -751,16 +801,27 @@ export const Grid = () => {
       );
       pathApproval(result, val[0]);
     } else if (algo == "DFS") {
-      let result = DFS(
-        grid,
-        hashmap,
-        prevmap,
-        start.current,
-        end.current,
-        "visited",
-        "visited2"
-      );
-      pathApproval(result, val[0]);
+      if (bomb.current.x != null && bomb.current.y != null) {
+        DFS_bomb(
+          grid,
+          hashmap,
+          prevmap,
+          start.current,
+          end.current,
+          "visited",
+          "visited2"
+        );
+      } else {
+        let result = DFS(
+          grid,
+          hashmap,
+          prevmap,
+          start.current,
+          end.current,
+          "visited"
+        );
+        pathApproval(result, val[0]);
+      }
     }
 
     checkToRestart(rest, val[1]);

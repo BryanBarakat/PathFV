@@ -4,6 +4,7 @@ import { useParams } from "../context/Context";
 import Draggable from "react-draggable";
 import close from "../../assets/close_new.png";
 import codeBFS from "../../assets/BFS.png";
+import codeDFS from "../../assets/DFS.png";
 import codeBDS from "../../assets/BDS.png";
 import prog from "../../assets/web-programming.png";
 import dragger from "../../assets/drag.png";
@@ -17,6 +18,8 @@ export const Code = () => {
       case "BFS":
         setCodeSnippet(codeBFS);
         break;
+      case "DFS":
+        setCodeSnippet(codeDFS);
       case "BDS":
         setCodeSnippet(codeBDS);
         break;

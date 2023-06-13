@@ -165,6 +165,11 @@
     font-size: 1.1rem;
   }
 
+  .buttons .navigate,
+  .container-tut .skip {
+    top: 69%;
+  }
+
   .container-tut h3,
   .container-tut h4,
   .container-tut h1,
@@ -199,7 +204,7 @@
 
   .container-tut .skip,
   .buttons .navigate {
-    top: 108%;
+    top: 100%;
   }
 }
 
@@ -214,7 +219,7 @@
 
   .container-tut .skip,
   .buttons .navigate {
-    top: 67%;
+    top: 54%;
   }
 
   .container-tut h3,
@@ -249,7 +254,7 @@
 
   .container-tut .skip,
   .buttons .navigate {
-    top: 72%;
+    top: 56%;
   }
 
   .buttons button {
@@ -268,7 +273,7 @@
 
   .container-tut .skip,
   .buttons .navigate {
-    top: 72%;
+    top: 50%;
   }
 
   .buttons button {
@@ -339,7 +344,7 @@
 
   .container-tut .skip,
   .buttons .navigate {
-    top: 57%;
+    top: 38%;
   }
 
   .buttons button {
@@ -401,5 +406,116 @@
 
   .container-tut .sub-container7 {
     font-size: 0.8rem;
+  }
+}
+
+@media only screen and (min-width: 1601px) {
+  .container-tut div {
+    padding: 50px 74px 50px 74px;
+    height: 550px;
+  }
+}
+
+@media only screen and (min-width: 1701px) {
+  .container-tut div {
+    padding: 50px 74px 50px 74px;
+    width: 1000px;
+    height: 550px;
+  }
+}
+
+@media only screen and (min-width: 1751px) {
+  .container-tut div {
+    padding: 50px 74px 50px 74px;
+    width: 1000px;
+    height: 600px;
+  }
+}
+
+@media only screen and (min-width: 1901px) {
+  .container-tut div {
+    width: 1100px;
+    height: 750px;
+  }
+
+  .container-tut .sub-container1,
+  .container-tut .sub-container2,
+  .container-tut .sub-container3,
+  .container-tut .sub-container4,
+  .container-tut .sub-container5,
+  .container-tut .sub-container6,
+  .container-tut .sub-container7 {
+    padding-top: 100px;
+    line-height: 3em;
+  }
+}
+
+@media only screen and (min-width: 2201px) {
+  .container-tut div {
+    width: 1500px;
+    height: 950px;
+    font-size: 1.3rem;
+  }
+
+  .container-tut .sub-container1,
+  .container-tut .sub-container2,
+  .container-tut .sub-container3,
+  .container-tut .sub-container4,
+  .container-tut .sub-container5,
+  .container-tut .sub-container6,
+  .container-tut .sub-container7 {
+    padding-top: 100px;
+    line-height: 4em;
+  }
+
+  .image-page-1,
+  .image-page-2,
+  .image-page-3 {
+    max-width: 200px;
+    max-height: 200px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .buttons button {
+    font-size: large;
+  }
+}
+
+@media only screen and (min-width: 2801px) {
+  .container-tut div {
+    width: 1700px;
+    height: 1050px;
+    font-size: 1.6rem;
+  }
+  .container-tut .sub-container1,
+  .container-tut .sub-container2,
+  .container-tut .sub-container3,
+  .container-tut .sub-container4,
+  .container-tut .sub-container5,
+  .container-tut .sub-container6,
+  .container-tut .sub-container7 {
+    padding-top: 200px;
+    line-height: 3em;
+  }
+
+  .image-page-2,
+  .image-page-3 {
+    max-width: 300px;
+    max-height: 300px;
+  }
+
+  .image-page-4,
+  .image-page-5 {
+    max-width: 500px;
+    max-height: 500px;
+  }
+
+  .buttons button {
+    font-size: 28px;
   }
 }

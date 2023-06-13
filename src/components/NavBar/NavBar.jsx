@@ -260,6 +260,9 @@ export const NavBar = () => {
             <option className="option" value={"BDS"}>
               BDS
             </option>
+            <option className="option" value={"Bidirectional"}>
+              Bidirectional Swarm Algorithm
+            </option>
           </select>
         </li>
       </ul>

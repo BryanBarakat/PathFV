@@ -172,6 +172,7 @@ a {
   background-color: #282828;
   transition: all 300ms ease-in-out;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .selection:focus,

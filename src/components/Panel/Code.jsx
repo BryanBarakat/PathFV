@@ -20,8 +20,12 @@ export const Code = () => {
         break;
       case "DFS":
         setCodeSnippet(codeDFS);
+        break;
       case "BDS":
         setCodeSnippet(codeBDS);
+        break;
+      case "Bidirectional":
+        setCodeSnippet(null);
         break;
       default:
         break;

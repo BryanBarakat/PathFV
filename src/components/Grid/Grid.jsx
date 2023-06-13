@@ -56,18 +56,18 @@ export const Grid = () => {
     let speedPath = 0;
     switch (speed) {
       case "Slow":
-        speedVal = 8;
-        speedPath = 9;
+        speedVal = 10;
+        speedPath = 11;
         animationTime = 1.5;
         break;
       case "Average":
-        speedVal = 5;
-        speedPath = 6;
+        speedVal = 7;
+        speedPath = 8;
         animationTime = 1.2;
         break;
       case "Fast":
-        speedVal = 3;
-        speedPath = 4;
+        speedVal = 5;
+        speedPath = 6;
         animationTime = 0.9;
     }
     return [speedVal, speedPath];
@@ -86,6 +86,20 @@ export const Grid = () => {
         let restartButton = document.getElementById("res");
         restartButton.style.pointerEvents = "auto";
         restartButton.style.opacity = "1";
+      }
+    }, val1 * val2);
+  };
+
+  const checkToRestartSwarm = (val1, val2) => {
+    setTimeout(() => {
+      for (let i = 0; i < refArray.length; i++) {
+        const node = refArray[i].current;
+        if (node.classList.contains("path")) {
+          let restartButton = document.getElementById("res");
+          restartButton.style.pointerEvents = "auto";
+          restartButton.style.opacity = "1";
+          return; // Exit the function if a node with "path" class is found
+        }
       }
     }, val1 * val2);
   };
@@ -179,6 +193,156 @@ export const Grid = () => {
     }
   };
 
+  const pathApprovalSwarm = (result, val) => {
+    let path = [];
+    let timer = 0;
+    let end = null;
+    let current = null;
+    let prevmap = null;
+    let prevmapB = null;
+    if (result != null) {
+      timer = rest = result[1];
+      current = result[0];
+      end = result[5];
+      prevmap = result[3];
+      prevmapB = result[4];
+      // c, count, val, prevmapA, prevmapB
+      while (prevmap[`${current.x}-${current.y}`] != null) {
+        path.push(current);
+        current = prevmap[`${current.x}-${current.y}`];
+      }
+      console.log(prevmapB);
+      while (prevmapB[`${end.x}-${end.y}`] != null) {
+        path.push(end);
+        end = prevmapB[`${end.x}-${end.y}`];
+      }
+      setTimeout(() => {
+        path.reverse().forEach((elem, index) => {
+          refArray[elem.x + elem.y * 50].current.style[
+            "animation"
+          ] = `render-visited-path 1.5s ease-out ${
+            index * 15
+          }ms alternate 1 forwards running`;
+          refArray[elem.x + elem.y * 50].current.style["transition-delay"] = `${
+            index * 15
+          }ms`;
+          refArray[elem.x + elem.y * 50].current.classList.add("path");
+          getPathWay();
+        });
+        setPathNodes(path.length);
+        seterror("");
+        setmetrics(true);
+      }, timer * val);
+    } else {
+      seterror("There are no available paths to get to the target location");
+      let restartButton = document.getElementById("res");
+      restartButton.style.pointerEvents = "auto";
+      restartButton.style.opacity = "1";
+    }
+  };
+
+  //fix blocked start or end, fix path end, add weight affection
+  function bidirectionalSwarm(graph, start, end, class_name, class_name2) {
+    let timeDateBefore = new Date(Date.now());
+    let val = speedMeter();
+    let queue = [
+      [start, "s"],
+      [end, "e"],
+    ];
+    let prevmapA = {};
+    let prevmapB = {};
+    let hashmap = {};
+    let count = 0;
+
+    hashmap[`${start.x}-${start.y}`] = true;
+    hashmap[`${end.x}-${end.y}`] = true;
+
+    function getNeighbours(c, queue, prevmap, hashmap, type) {
+      const neighbors = [
+        { x: c.x - 1, y: c.y },
+        { x: c.x, y: c.y + 1 },
+        { x: c.x + 1, y: c.y },
+        { x: c.x, y: c.y - 1 },
+      ];
+      for (let neighbor of neighbors) {
+        const { x, y } = neighbor;
+
+        if (
+          (x >= 0 &&
+            x < 50 &&
+            y >= 0 &&
+            y < 25 &&
+            !hashmap[`${x}-${y}`] &&
+            !graph[y][x].iswall) ||
+          (x >= 0 &&
+            x < 50 &&
+            y >= 0 &&
+            y < 25 &&
+            !graph[y][x].iswall &&
+            refArray[x + y * 50].current.classList.contains(class_name) &&
+            type == "e") ||
+          (x >= 0 &&
+            x < 50 &&
+            y >= 0 &&
+            y < 25 &&
+            !graph[y][x].iswall &&
+            refArray[x + y * 50].current.classList.contains(class_name2) &&
+            type == "s")
+        ) {
+          queue.unshift([neighbor, type]);
+          prevmap[`${x}-${y}`] = { ...c };
+          hashmap[`${x}-${y}`] = true;
+        }
+      }
+    }
+
+    let last_end = null;
+
+    while (queue.length > 0) {
+      for (let i = 0; i < queue.length; i++) {
+        count += 1;
+        let [c, type] = queue.pop();
+        refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
+          count * val[0]
+        }ms`;
+        if (type == "s") {
+          refArray[c.x + c.y * 50].current.classList.add(class_name);
+          refArray[c.x + c.y * 50].current.style[
+            "animation"
+          ] = `render-visited ${animationTime}s ease-out ${
+            count * val[0]
+          }ms alternate 1 forwards running`;
+        } else if (type == "e") {
+          last_end = c;
+          refArray[c.x + c.y * 50].current.classList.add(class_name2);
+          refArray[c.x + c.y * 50].current.style[
+            "animation"
+          ] = `render-visited2 ${animationTime}s ease-out ${
+            count * val[0]
+          }ms alternate 1 forwards running`;
+        }
+        const sVisited =
+          refArray[c.x + c.y * 50].current.classList.contains(class_name);
+        const eVisited =
+          refArray[c.x + c.y * 50].current.classList.contains(class_name2);
+        if (sVisited && eVisited) {
+          let timeDateAfter = new Date(Date.now());
+          setRuntime(
+            (timeDateAfter.getTime() - timeDateBefore.getTime()).toString()
+          );
+          setNumNodes(count);
+          return [c, count, val, prevmapA, prevmapB, last_end];
+        }
+        if (type == "s") {
+          getNeighbours(c, queue, prevmapA, hashmap, type);
+        } else {
+          getNeighbours(c, queue, prevmapB, hashmap, type);
+        }
+      }
+    }
+    return null;
+  }
+
   function DFS_bomb(
     graph,
     hashmap,
@@ -211,7 +375,7 @@ export const Grid = () => {
         }ms alternate 1 forwards running`;
 
         if (c.x == bomb.current.x && c.y == bomb.current.y) {
-          response.push(c, count, val, prevmap);
+          response.push(c, count, prevmap, val);
           numNode = count;
           break;
         }
@@ -240,6 +404,7 @@ export const Grid = () => {
         }
       }
     }
+    console.log(prevmap);
     let counter = 0;
     let newprevmap = {};
 
@@ -251,12 +416,6 @@ export const Grid = () => {
           newhashmap[`${j}-${i}`] = false;
         }
       }
-      for (const element of refArray) {
-        element.current.style["transition-delay"] = `${0}ms`;
-        element.current.style["animation"] = `none`;
-        element.current.style["background"] = "white";
-        // element.current.classList.remove(class_name);
-      }
       newhashmap[`${bomb.current.x}-${bomb.current.y}`] = true;
       let stack = [bomb.current];
       while (stack.length > 0) {
@@ -266,6 +425,9 @@ export const Grid = () => {
           numNode += 1;
         }
         if (!refArray[c.x + c.y * 50].current.classList.contains(class_name2)) {
+          refArray[c.x + c.y * 50].current.style["transition-delay"] = `${0}ms`;
+          refArray[c.x + c.y * 50].current.style["animation"] = `none`;
+          refArray[c.x + c.y * 50].current.style["background"] = "white";
           refArray[c.x + c.y * 50].current.style["transition-delay"] = `${
             counter * val[0]
           }ms`;
@@ -718,6 +880,14 @@ export const Grid = () => {
     return null;
   }
 
+  const removeBomb = () => {
+    if (bomb.current.x != null && bomb.current.y != null) {
+      seterror("This Algorithm doesn't support bombs");
+      grid[bomb.current.y][bomb.current.x].isbomb = false;
+      bomb.current = { x: null, y: null };
+    }
+  };
+
   useEffect(() => {
     if (algo != "") {
       setdrag((old) => {
@@ -786,11 +956,7 @@ export const Grid = () => {
         pathApproval(result, val[0]);
       }
     } else if (algo == "BDS") {
-      if (bomb.current.x != null && bomb.current.y != null) {
-        seterror("This Algorithm doesn't support bombs");
-        grid[bomb.current.y][bomb.current.x].isbomb = false;
-        bomb.current = { x: null, y: null };
-      }
+      removeBomb();
       let result = BDS(
         grid,
         hashmap,
@@ -822,6 +988,17 @@ export const Grid = () => {
         );
         pathApproval(result, val[0]);
       }
+    } else if (algo == "Bidirectional") {
+      removeBomb();
+      let result = bidirectionalSwarm(
+        grid,
+        start.current,
+        end.current,
+        "visited",
+        "visited2"
+      );
+      pathApprovalSwarm(result, val[0]);
+      checkToRestartSwarm(result[1], val[1]);
     }
 
     checkToRestart(rest, val[1]);

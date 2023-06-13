@@ -16,6 +16,7 @@ import "./Grid.css";
 export const Grid = () => {
   const {
     mode,
+    setRefArrayCopy,
     algo,
     grid,
     setgrid,
@@ -48,6 +49,8 @@ export const Grid = () => {
   };
 
   const [refArray, setrefarray] = useState(setRefs(grid));
+
+  setRefArrayCopy(refArray);
 
   var animationTime;
 

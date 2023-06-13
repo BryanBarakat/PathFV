@@ -33,6 +33,7 @@ export const Context = ({ children }) => {
   const [runtime, setRuntime] = useState("");
   const [numNodes, setNumNodes] = useState(0);
   const [pathNodes, setPathNodes] = useState(0);
+  const [refArrayCopy, setRefArrayCopy] = useState(null);
   const [content, setcontent] = useState(
     <div>
       <h5>Help Panel</h5>
@@ -72,6 +73,8 @@ export const Context = ({ children }) => {
 
   const MemoizedObjects = useMemo(() => {
     return {
+      refArrayCopy,
+      setRefArrayCopy,
       algo,
       setalgo,
       setmaze,
@@ -118,6 +121,8 @@ export const Context = ({ children }) => {
     };
   }, [
     algo,
+    refArrayCopy,
+    setRefArrayCopy,
     setalgo,
     maze,
     setmaze,

@@ -15,6 +15,7 @@ import erasers from "../../assets/eraser.png";
 export const NavBar = () => {
   const {
     mode,
+    refArrayCopy,
     setmode,
     algo,
     setalgo,
@@ -41,6 +42,70 @@ export const NavBar = () => {
     !config ? setconfig(true) : setconfig(false);
   };
 
+  const coordinates = [
+    [23, 1],
+    [22, 2],
+    [21, 3],
+    [20, 4],
+    [19, 5],
+    [18, 6],
+    [17, 7],
+    [16, 8],
+    [15, 9],
+    [14, 10],
+    [13, 11],
+    [12, 12],
+    [11, 13],
+    [10, 14],
+    [9, 15],
+    [8, 16],
+    [7, 17],
+    [6, 18],
+    [5, 19],
+    [4, 20],
+    [3, 21],
+    [2, 22],
+    [1, 23],
+    [2, 24],
+    [3, 25],
+    [4, 26],
+    [5, 27],
+    [6, 28],
+    [7, 29],
+    [8, 30],
+    [9, 31],
+    [10, 32],
+    [11, 33],
+    [12, 34],
+    [13, 35],
+    [14, 36],
+    [15, 37],
+    [16, 38],
+    [17, 39],
+    [18, 40],
+    [19, 41],
+    [20, 42],
+    [21, 43],
+    [20, 44],
+    [19, 45],
+    [18, 46],
+    [17, 47],
+    [16, 48],
+  ];
+
+  function SimpleStairPattern() {
+    for (let i = 0; i < coordinates.length; i++) {
+      const x = coordinates[i][1];
+      const y = coordinates[i][0];
+      grid[y][x].iswall = true;
+      refArrayCopy[x + y * 50].current.style[
+        "animation"
+      ] = `simple-stair 0.12s ease-out ${
+        i * 20
+      }ms alternate 1 forwards running`;
+    }
+  }
+
   const checkAlgo = () => {
     if (algo == "") {
       seterror("An Algorithm has to be chosen.");
@@ -52,7 +117,7 @@ export const NavBar = () => {
   useEffect(() => {
     switch (maze) {
       case "SimpleStair":
-        //todo
+        SimpleStairPattern();
         break;
     }
   }, [maze]);

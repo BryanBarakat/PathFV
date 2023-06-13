@@ -18,6 +18,8 @@ export const NavBar = () => {
     setmode,
     algo,
     setalgo,
+    maze,
+    setmaze,
     setres,
     setrun,
     speed,
@@ -46,6 +48,14 @@ export const NavBar = () => {
       seterror("");
     }
   };
+
+  useEffect(() => {
+    switch (maze) {
+      case "SimpleStair":
+        //todo
+        break;
+    }
+  }, [maze]);
 
   const pointerEvents = () => {
     const arr = [
@@ -259,6 +269,20 @@ export const NavBar = () => {
             </option>
             <option className="option" value={"Bidirectional"}>
               Bidirectional Swarm Algorithm
+            </option>
+          </select>
+          <select
+            onChange={(e) => {
+              setmaze(e.target.value);
+            }}
+            className="selection mazes-patterns"
+            value={maze}
+          >
+            <option className="option" value={""}>
+              Mazes & Patterns
+            </option>
+            <option className="option" value={"SimpleStair"}>
+              Simple Stair Pattern
             </option>
           </select>
         </li>

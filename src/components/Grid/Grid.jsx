@@ -902,12 +902,8 @@ export const Grid = () => {
 
   useEffect(() => {
     if (algo != "") {
-      setdrag((old) => {
-        return !old;
-      });
-      setdrag2((old) => {
-        return !old;
-      });
+      setdrag(false);
+      setdrag2(false);
     }
 
     let hashmap = {};

@@ -85,48 +85,48 @@ body {
 
 .panel-container .nav-bar-panel img:hover {
   scale: 1.02;
-  filter: invert(81%) sepia(27%) saturate(3405%) hue-rotate(38deg)
-    brightness(108%) contrast(106%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
 .img-1:hover {
-  filter: invert(78%) sepia(59%) saturate(3377%) hue-rotate(68deg)
-    brightness(109%) contrast(87%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 
 .img-2:hover {
-  filter: invert(72%) sepia(31%) saturate(6318%) hue-rotate(303deg)
-    brightness(106%) contrast(91%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 
 .img-3:hover {
-  filter: invert(78%) sepia(59%) saturate(3377%) hue-rotate(68deg)
-    brightness(109%) contrast(87%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-4:hover {
-  filter: invert(55%) sepia(99%) saturate(592%) hue-rotate(325deg)
-    brightness(100%) contrast(103%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-5:hover {
-  filter: invert(89%) sepia(15%) saturate(1129%) hue-rotate(95deg)
-    brightness(100%) contrast(103%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-6:hover {
-  filter: invert(73%) sepia(51%) saturate(6278%) hue-rotate(160deg)
-    brightness(103%) contrast(104%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-7:hover {
-  filter: invert(13%) sepia(99%) saturate(7152%) hue-rotate(5deg)
-    brightness(105%) contrast(115%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-8:hover {
-  filter: invert(82%) sepia(59%) saturate(3510%) hue-rotate(6deg)
-    brightness(112%) contrast(105%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 .img-9:hover {
-  filter: invert(50%) sepia(9%) saturate(5730%) hue-rotate(38deg)
-    brightness(95%) contrast(98%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 
 .start-content,

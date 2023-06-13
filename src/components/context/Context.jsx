@@ -16,6 +16,7 @@ export const useParams = () => {
 
 export const Context = ({ children }) => {
   const [algo, setalgo] = useState("");
+  const [maze, setmaze] = useState("");
   const [mode, setmode] = useState(null);
   const [editing, seteditFlag] = useState(false);
   const [run, setrun] = useState(false);
@@ -73,6 +74,8 @@ export const Context = ({ children }) => {
     return {
       algo,
       setalgo,
+      setmaze,
+      maze,
       mode,
       setmode,
       editing,
@@ -116,6 +119,8 @@ export const Context = ({ children }) => {
   }, [
     algo,
     setalgo,
+    maze,
+    setmaze,
     mode,
     setmode,
     editing,

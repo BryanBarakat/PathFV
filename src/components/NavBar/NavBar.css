@@ -20,6 +20,10 @@ ul li {
   padding-top: 3.5px;
 }
 
+.mazes-patterns {
+  margin-left: 14px;
+}
+
 .container {
   padding: 0px;
   height: 100px;
@@ -150,8 +154,8 @@ a {
 .image-nav7:hover,
 .image-nav8:hover {
   scale: 1.2;
-  filter: invert(81%) sepia(27%) saturate(3405%) hue-rotate(38deg)
-    brightness(108%) contrast(106%);
+  filter: invert(78%) sepia(46%) saturate(364%) hue-rotate(179deg)
+    brightness(101%) contrast(95%);
 }
 
 .image-navv1:hover {
@@ -179,7 +183,7 @@ a {
 .selection2:focus {
   border-top-right-radius: 10px !important;
   border-bottom-left-radius: 10px !important;
-  border-color: greenyellow !important;
+  border-color: #afd8f8 !important;
 }
 
 .selection:hover,
@@ -224,7 +228,7 @@ a {
 
 .configuration-tab h2,
 .configuration-tab h3 {
-  font-weight: 400;
+  font-weight: 800;
 }
 
 .speed div,
@@ -236,7 +240,7 @@ a {
 }
 
 .enabled-opt {
-  opacity: 0.2;
+  opacity: 0.4;
   border: 2px solid var(--color-text);
   background-color: var(--color-text);
   color: white;
@@ -254,16 +258,23 @@ a {
 }
 
 .configuration-tab .close button {
+  font-size: 16px;
   border: 2px solid var(--color-text);
-  background-color: aqua;
-  color: var(--color-text);
-  padding: 8px 32px 8px 32px;
+  background: linear-gradient(to left, #afd8f8 50%, #6495ed 50%) right;
+  background-size: 200% 100%;
+  color: black;
+  padding: 10px 32px 10px 32px;
   cursor: pointer;
   transition: all 300ms ease-in-out;
   position: fixed;
   bottom: 5%;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.configuration-tab .close button:hover {
+  background-position: left;
+  /* color: #fff; */
 }
 
 .configuration-tab .tutorial button,

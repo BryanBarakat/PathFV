@@ -6,6 +6,7 @@ import close from "../../assets/close_new.png";
 import codeBFS from "../../assets/BFS.png";
 import codeDFS from "../../assets/DFS.png";
 import codeBDS from "../../assets/BDS.png";
+import BidirectionalSwarm from "../../assets/BidirectionalSwarm.png";
 import prog from "../../assets/web-programming.png";
 import dragger from "../../assets/drag.png";
 
@@ -21,11 +22,8 @@ export const Code = () => {
       case "DFS":
         setCodeSnippet(codeDFS);
         break;
-      case "BDS":
-        setCodeSnippet(codeBDS);
-        break;
       case "Bidirectional":
-        setCodeSnippet(null);
+        setCodeSnippet(BidirectionalSwarm);
         break;
       default:
         break;

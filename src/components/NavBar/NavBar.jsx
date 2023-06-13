@@ -252,13 +252,10 @@ export const NavBar = () => {
               Algorithms
             </option>
             <option className="option" value={"DFS"}>
-              DFS
+              Depth-First Search
             </option>
             <option className="option" value={"BFS"}>
-              BFS
-            </option>
-            <option className="option" value={"BDS"}>
-              BDS
+              Breadth-First Search
             </option>
             <option className="option" value={"Bidirectional"}>
               Bidirectional Swarm Algorithm

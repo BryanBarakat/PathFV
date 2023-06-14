@@ -1055,6 +1055,10 @@ export const Grid = () => {
               if (!editing) {
                 return;
               }
+              if (elem.current.style["animationName"] == "simple-stair") {
+                elem.current.style["backgroundColor"] = "white";
+                elem.current.style["animation"] = "none";
+              }
               let current = grid[indexY][indexX];
               if (current.isstart || current.istarget || current.iseraser) {
                 return;

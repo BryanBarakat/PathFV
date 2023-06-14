@@ -9,12 +9,13 @@ import Restart from "../../assets/restarting.png";
 import Run from "../../assets/run-dev.png";
 import combine from "../../assets/combine.png";
 import configured from "../../assets/config.png";
-import bomb from "../../assets/round-bomb.png";
+import bombing from "../../assets/round-bomb.png";
 import erasers from "../../assets/eraser.png";
 
 export const NavBar = () => {
   const {
     mode,
+    bomb,
     refArrayCopy,
     setmode,
     algo,
@@ -40,6 +41,14 @@ export const NavBar = () => {
 
   const configure = () => {
     !config ? setconfig(true) : setconfig(false);
+  };
+
+  const checkAlgo = () => {
+    if (algo == "") {
+      seterror("An Algorithm has to be chosen.");
+    } else {
+      seterror("");
+    }
   };
 
   const coordinates = [
@@ -106,17 +115,118 @@ export const NavBar = () => {
     }
   }
 
-  const checkAlgo = () => {
-    if (algo == "") {
-      seterror("An Algorithm has to be chosen.");
-    } else {
-      seterror("");
+  function BasicWeightMaze(min, max, count) {
+    var values = [];
+
+    // Create an array with all values in the range
+    for (var i = min; i <= max; i++) {
+      values.push(i);
     }
+
+    // Shuffle the array using Fisher-Yates algorithm
+    for (var i = values.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = values[i];
+      values[i] = values[j];
+      values[j] = temp;
+    }
+
+    let randoms = values.slice(0, count);
+    let new_grid = grid.slice();
+
+    for (let i = 0; i < randoms.length; i++) {
+      let indexY = Math.floor(randoms[i] / 50);
+      let indexX = randoms[i] % 50;
+      if (
+        !new_grid[indexY][indexX].iswall &&
+        !new_grid[indexY][indexX].isstart &&
+        !new_grid[indexY][indexX].istarget &&
+        !new_grid[indexY][indexX].isbomb &&
+        !new_grid[indexY][indexX].iseraser
+      ) {
+        new_grid[indexY][indexX] = {
+          ...new_grid[indexY][indexX],
+          weight: 5,
+        };
+      }
+    }
+    setgrid(new_grid);
+  }
+
+  function BasicRandomMaze(min, max, count) {
+    var values = [];
+
+    // Create an array with all values in the range
+    for (var i = min; i <= max; i++) {
+      values.push(i);
+    }
+
+    // Shuffle the array using Fisher-Yates algorithm
+    for (var i = values.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = values[i];
+      values[i] = values[j];
+      values[j] = temp;
+    }
+
+    let randoms = values.slice(0, count);
+    let new_grid = grid.slice();
+
+    for (let i = 0; i < randoms.length; i++) {
+      let indexY = Math.floor(randoms[i] / 50);
+      let indexX = randoms[i] % 50;
+      if (
+        !new_grid[indexY][indexX].isstart &&
+        !new_grid[indexY][indexX].istarget &&
+        !new_grid[indexY][indexX].isbomb &&
+        !new_grid[indexY][indexX].iseraser
+      ) {
+        new_grid[indexY][indexX] = {
+          ...new_grid[indexY][indexX],
+          iswall: true,
+        };
+      }
+    }
+    setgrid(new_grid);
+  }
+
+  const resetGridMaze = () => {
+    let newgrid = grid.slice();
+    for (let i = 0; i < newgrid.length; i++) {
+      for (let j = 0; j < newgrid[i].length; j++) {
+        let el = newgrid[i][j];
+        el.iswall = false;
+        el.isbomb = false;
+        el.iseraser = false;
+        el.weight = 1;
+      }
+    }
+    bomb.current = { x: null, y: null };
+    refArrayCopy.map((el) => {
+      el.current.style["backgroundColor"] = "white";
+      el.current.style["animation"] = "none";
+    });
+    setgrid(newgrid);
   };
 
   useEffect(() => {
     switch (maze) {
+      case "BasicMaze":
+        let min = 0;
+        let max = 1249;
+        let Walls = 300;
+        resetGridMaze();
+        BasicRandomMaze(min, max, Walls);
+        break;
+      case "BasicWeight":
+        let mini = 0;
+        let maxi = 1249;
+        let weightItems = 400;
+        resetGridMaze();
+        BasicWeightMaze(mini, maxi, weightItems);
+        break;
       case "SimpleStair":
+        resetGridMaze();
         SimpleStairPattern();
         break;
     }
@@ -248,7 +358,7 @@ export const NavBar = () => {
             }}
             className={setClass("setbomb", "selectedOption0")}
           >
-            <img className="image-nav0" src={bomb}></img>
+            <img className="image-nav0" src={bombing}></img>
           </li>
           <li
             id="res"
@@ -345,6 +455,12 @@ export const NavBar = () => {
           >
             <option className="option" value={""}>
               Mazes & Patterns
+            </option>
+            <option className="option" value={"BasicMaze"}>
+              Basic Random Maze
+            </option>
+            <option className="option" value={"BasicWeight"}>
+              Basic Weight Maze
             </option>
             <option className="option" value={"SimpleStair"}>
               Simple Stair Pattern

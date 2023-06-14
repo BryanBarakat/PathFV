@@ -136,7 +136,7 @@
 }
 
 .buttons button {
-  font-weight: 800;
+  font-weight: 400;
   font-size: 16px;
   border: 2px solid var(--color-text);
   background: linear-gradient(to left, #afd8f8 50%, #6495ed 50%) right;

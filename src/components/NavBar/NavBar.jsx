@@ -16,6 +16,7 @@ export const NavBar = () => {
   const {
     mode,
     bomb,
+    start,
     refArrayCopy,
     setmode,
     algo,
@@ -50,6 +51,114 @@ export const NavBar = () => {
       seterror("");
     }
   };
+
+  function recursiveDivisionMaze(
+    grid,
+    startX,
+    startY,
+    width,
+    height,
+    orientation
+  ) {
+    if (width < 2 || height < 2) {
+      return;
+    }
+
+    // Choose orientation (vertical or horizontal) for the division
+    const isVertical = orientation === "vertical";
+
+    // Choose a random position for the wall
+    const wallX =
+      startX + (isVertical ? Math.floor(Math.random() * (width - 2)) + 1 : 0);
+    const wallY =
+      startY + (isVertical ? 0 : Math.floor(Math.random() * (height - 2)) + 1);
+
+    // Choose a random position for the passage
+    const passageX =
+      wallX + (isVertical ? 0 : Math.floor(Math.random() * width));
+    const passageY =
+      wallY + (isVertical ? Math.floor(Math.random() * height) : 0);
+
+    // Carve the wall
+    for (let x = startX; x < startX + width; x++) {
+      for (let y = startY; y < startY + height; y++) {
+        if (isVertical && x === wallX) {
+          grid[y][x].iswall = true;
+        } else if (!isVertical && y === wallY) {
+          grid[y][x].iswall = true;
+        }
+      }
+    }
+
+    // Carve the passage
+    grid[passageY][passageX].iswall = false;
+
+    // Recurse on the divided chambers if there is enough space
+    if (isVertical && wallX - startX > 1) {
+      recursiveDivisionMaze(
+        grid,
+        startX,
+        startY,
+        wallX - startX + 1,
+        height,
+        chooseOrientation(wallX - startX + 1, height)
+      );
+    }
+    if (!isVertical && wallY - startY > 1) {
+      recursiveDivisionMaze(
+        grid,
+        startX,
+        startY,
+        width,
+        wallY - startY + 1,
+        chooseOrientation(width, wallY - startY + 1)
+      );
+    }
+    if (isVertical && startX + width - wallX > 2) {
+      recursiveDivisionMaze(
+        grid,
+        wallX + 1,
+        startY,
+        startX + width - wallX - 1,
+        height,
+        chooseOrientation(startX + width - wallX - 1, height)
+      );
+    }
+    if (!isVertical && startY + height - wallY > 2) {
+      recursiveDivisionMaze(
+        grid,
+        startX,
+        wallY + 1,
+        width,
+        startY + height - wallY - 1,
+        chooseOrientation(width, startY + height - wallY - 1)
+      );
+    }
+  }
+
+  function chooseOrientation(width, height) {
+    if (width < height) {
+      return "horizontal";
+    } else if (height < width) {
+      return "vertical";
+    } else {
+      return Math.random() < 0.5 ? "horizontal" : "vertical";
+    }
+  }
+
+  function generateMaze() {
+    const newGrid = grid.map((row) => [...row]); // Create a copy of the existing grid
+    // Call the recursive division algorithm to generate the maze
+    recursiveDivisionMaze(
+      newGrid,
+      0,
+      0,
+      newGrid[0].length,
+      newGrid.length,
+      chooseOrientation(newGrid[0].length, newGrid.length)
+    );
+    setmaze(newGrid); // Update the maze grid state with the generated maze
+  }
 
   const coordinates = [
     [23, 1],
@@ -228,6 +337,10 @@ export const NavBar = () => {
       case "SimpleStair":
         resetGridMaze();
         SimpleStairPattern();
+        break;
+      case "RecursiveDivision":
+        resetGridMaze();
+        generateMaze();
         break;
     }
   }, [maze]);
@@ -445,6 +558,9 @@ export const NavBar = () => {
             <option className="option" value={"Bidirectional"}>
               Bidirectional Swarm Algorithm
             </option>
+            <option className="option" value={"Dijkstra"}>
+              Dijkstra's Shortest Path
+            </option>
           </select>
           <select
             onChange={(e) => {
@@ -455,6 +571,9 @@ export const NavBar = () => {
           >
             <option className="option" value={""}>
               Mazes & Patterns
+            </option>
+            <option className="option" value={"RecursiveDivision"}>
+              Recursive Division
             </option>
             <option className="option" value={"BasicMaze"}>
               Basic Random Maze

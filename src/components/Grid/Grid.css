@@ -37,6 +37,8 @@
   margin: 0;
   pointer-events: none;
   animation: weight-render 200ms linear forwards;
+  filter: invert(14%) sepia(67%) saturate(785%) hue-rotate(158deg)
+    brightness(93%) contrast(93%);
 }
 
 /* .visited {
@@ -192,12 +194,15 @@
   }
 }
 
-.weighted,
 .targetted,
-.started,
-.bombed {
+.started {
   filter: invert(7%) sepia(86%) saturate(6584%) hue-rotate(280deg)
     brightness(65%) contrast(99%);
+}
+
+.bombed {
+  filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(320deg) brightness(97%)
+    contrast(104%);
 }
 
 .started {

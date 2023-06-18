@@ -154,7 +154,7 @@ export const Grid = () => {
         newprevmap = result[6];
       }
       while (
-        prevmap[`${current.x}-${current.y}`] != null ||
+        (prevmap && current && prevmap[`${current.x}-${current.y}`] != null) ||
         (newprevmap &&
           current2 &&
           newprevmap[`${current2.x}-${current2.y}`] != null)
@@ -166,7 +166,11 @@ export const Grid = () => {
         ) {
           path.push(current2);
           current2 = newprevmap[`${current2.x}-${current2.y}`];
-        } else if (prevmap[`${current.x}-${current.y}`] != null) {
+        } else if (
+          prevmap &&
+          current &&
+          prevmap[`${current.x}-${current.y}`] != null
+        ) {
           path.push(current);
           current = prevmap[`${current.x}-${current.y}`];
         }
@@ -242,6 +246,194 @@ export const Grid = () => {
       restartButton.style.opacity = "1";
     }
   };
+
+  function Dijkstra(graph, start, end, class_name, class_name2) {
+    let timeDateBefore = new Date(Date.now());
+    let val = speedMeter();
+    let visited = new Set();
+    let hashmap = {};
+    var response = [];
+    let numNode = 0;
+    let count = 0;
+    var counter = 0;
+    let time = 0;
+    var ending = end;
+    if (bomb.current.x != null && bomb.current.y != null) {
+      end = bomb.current;
+    }
+
+    hashmap[`${start.x}-${start.y}`] = true;
+
+    let minHeap = [[0, start]];
+
+    function getNeighbours(c, heap, prevmap, hashmap, cost) {
+      const neighbors = [
+        { x: c.x - 1, y: c.y },
+        { x: c.x, y: c.y + 1 },
+        { x: c.x + 1, y: c.y },
+        { x: c.x, y: c.y - 1 },
+      ];
+      for (let neighbor of neighbors) {
+        const { x, y } = neighbor;
+
+        if (
+          x >= 0 &&
+          x < 50 &&
+          y >= 0 &&
+          y < 25 &&
+          !hashmap[`${x}-${y}`] &&
+          !graph[y][x].iswall
+        ) {
+          if (
+            !refArray[
+              bomb.current.x + bomb.current.y * 50
+            ].current.classList.contains(class_name)
+          ) {
+            count++;
+          } else {
+            counter++;
+          }
+          heap.unshift([graph[y][x].weight + cost, neighbor]);
+          prevmap[`${x}-${y}`] = { ...c };
+          hashmap[`${x}-${y}`] = true;
+        }
+      }
+    }
+    while (minHeap.length > 0) {
+      const [cost, node] = minHeap.shift();
+      if (visited.has(`${node.x}-${node.y}`)) {
+        continue;
+      }
+      refArray[node.x + node.y * 50].current.style["transition-delay"] = `${
+        count * val[0]
+      }ms`;
+      refArray[node.x + node.y * 50].current.classList.add(class_name);
+      if (graph[node.y][node.x].weight > 1) {
+        refArray[node.x + node.y * 50].current.style[
+          "animation"
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * 3 * val[0]
+        }ms alternate 1 forwards running`;
+      } else {
+        refArray[node.x + node.y * 50].current.style[
+          "animation"
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * val[0]
+        }ms alternate 1 forwards running`;
+      }
+      time = cost;
+      visited.add(`${node.x}-${node.y}`);
+      if (
+        bomb.current.x != null &&
+        node.x == bomb.current.x &&
+        node.y == bomb.current.y
+      ) {
+        response.push(node, count, visited, val);
+        numNode = count;
+        break;
+      }
+      if (node.x == end.x && node.y == end.y) {
+        let timeDateAfter = new Date(Date.now());
+        setRuntime(
+          (timeDateAfter.getTime() - timeDateBefore.getTime()).toString()
+        );
+        setNumNodes(count);
+        return [node, count, val, visited];
+      }
+      getNeighbours(node, minHeap, visited, hashmap, cost);
+      minHeap.sort((a, b) => a[0] - b[0]);
+    }
+    if (bomb.current.x != null && bomb.current.y != null) {
+      let newprevmap = {};
+      minHeap = [[0, bomb.current]];
+      end = ending;
+
+      function change() {
+        let newhashmap = {};
+        for (let i = 0; i < grid.length; i++) {
+          for (let j = 0; j < grid[i].length; j++) {
+            newprevmap[`${j}-${i}`] = null;
+            newhashmap[`${j}-${i}`] = false;
+          }
+        }
+        newhashmap[`${bomb.current.x}-${bomb.current.y}`] = true;
+        while (minHeap.length > 0) {
+          const [cost, node] = minHeap.shift();
+          // if (newhashmap[`${node.x}-${node.y}`]) {
+          //   continue;
+          // }
+          refArray[node.x + node.y * 50].current.style["transition-delay"] = `${
+            counter * val[0]
+          }ms`;
+          if (
+            !refArray[node.x + node.y * 50].current.classList.contains(
+              class_name
+            )
+          ) {
+            numNode += 1;
+          }
+          refArray[node.x + node.y * 50].current.classList.add(class_name2);
+          if (graph[node.y][node.x].weight > 1) {
+            refArray[node.x + node.y * 50].current.style[
+              "animation"
+            ] = `render-visited2 ${animationTime}s ease-out ${
+              counter * 3 * val[0]
+            }ms alternate 1 forwards running`;
+          } else {
+            refArray[node.x + node.y * 50].current.style[
+              "animation"
+            ] = `render-visited2 ${animationTime}s ease-out ${
+              counter * val[0]
+            }ms alternate 1 forwards running`;
+          }
+          time = cost;
+          if (node.x == end.x && node.y == end.y) {
+            let timeDateAfter = new Date(Date.now());
+            response.push(node, counter, newprevmap);
+            setRuntime(
+              (
+                timeDateAfter.getTime() -
+                timeDateBefore.getTime() -
+                count * val[0]
+              ).toString()
+            );
+            setNumNodes(numNode);
+            return true;
+          }
+          getNeighbours(node, minHeap, newprevmap, newhashmap, cost);
+          minHeap.sort((a, b) => a[0] - b[0]);
+        }
+        return false;
+      }
+
+      function x() {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve(change);
+          }, count * val[0]);
+        });
+      }
+
+      var final_res = null;
+      x().then(() => {
+        if (change() === true) {
+          final_res = response;
+          return response;
+        } else {
+          return null;
+        }
+      });
+
+      async function fin() {
+        const fin_res = await x();
+        pathApproval(final_res, val[1]);
+        checkToRestart(rest + counter, val[1]);
+        return fin_res;
+      }
+
+      return fin();
+    }
+  }
 
   function bidirectionalSwarm(graph, start, end, class_name, class_name2) {
     let timeDateBefore = new Date(Date.now());
@@ -1013,6 +1205,17 @@ export const Grid = () => {
         checkToRestartSwarm(result[1], val[1]);
       } else {
         checkToRestartSwarm(null, val[1]);
+      }
+    } else if (algo == "Dijkstra") {
+      let result = Dijkstra(
+        grid,
+        start.current,
+        end.current,
+        "visited",
+        "visited2"
+      );
+      if (bomb.current.x == null && bomb.current.y == null) {
+        pathApproval(result, val[0]);
       }
     }
 

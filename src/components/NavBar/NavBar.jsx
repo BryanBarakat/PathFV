@@ -17,6 +17,7 @@ export const NavBar = () => {
     mode,
     bomb,
     start,
+    end,
     refArrayCopy,
     setmode,
     algo,
@@ -58,7 +59,9 @@ export const NavBar = () => {
     startY,
     width,
     height,
-    orientation
+    orientation,
+    targetX,
+    targetY
   ) {
     if (width < 2 || height < 2) {
       return;
@@ -101,7 +104,9 @@ export const NavBar = () => {
         startY,
         wallX - startX + 1,
         height,
-        chooseOrientation(wallX - startX + 1, height)
+        chooseOrientation(wallX - startX + 1, height),
+        targetX,
+        targetY
       );
     }
     if (!isVertical && wallY - startY > 1) {
@@ -111,7 +116,9 @@ export const NavBar = () => {
         startY,
         width,
         wallY - startY + 1,
-        chooseOrientation(width, wallY - startY + 1)
+        chooseOrientation(width, wallY - startY + 1),
+        targetX,
+        targetY
       );
     }
     if (isVertical && startX + width - wallX > 2) {
@@ -121,7 +128,9 @@ export const NavBar = () => {
         startY,
         startX + width - wallX - 1,
         height,
-        chooseOrientation(startX + width - wallX - 1, height)
+        chooseOrientation(startX + width - wallX - 1, height),
+        targetX,
+        targetY
       );
     }
     if (!isVertical && startY + height - wallY > 2) {
@@ -131,9 +140,90 @@ export const NavBar = () => {
         wallY + 1,
         width,
         startY + height - wallY - 1,
-        chooseOrientation(width, startY + height - wallY - 1)
+        chooseOrientation(width, startY + height - wallY - 1),
+        targetX,
+        targetY
       );
     }
+  }
+
+  function generateMaze(targetX, targetY) {
+    const newGrid = grid.map((row) => [...row]); // Create a copy of the existing grid
+    // Call the recursive division algorithm to generate the maze
+    recursiveDivisionMaze(
+      newGrid,
+      0,
+      0,
+      newGrid[0].length,
+      newGrid.length,
+      chooseOrientation(newGrid[0].length, newGrid.length),
+      targetX,
+      targetY
+    );
+
+    // Ensure there is a path from the start to the target location
+    const start = { x: 0, y: 0 };
+    const target = { x: targetX, y: targetY };
+    connectCells(newGrid, start, target);
+
+    setmaze(newGrid); // Update the maze grid state with the generated maze
+  }
+
+  function connectCells(grid, start, target) {
+    const stack = [{ ...start, path: [] }];
+    const visited = new Set();
+
+    while (stack.length > 0) {
+      const current = stack.pop();
+      const { x, y, path } = current;
+      const cell = grid[y][x];
+
+      if (x === target.x && y === target.y) {
+        // Path found, connect the cells
+        for (const { x, y } of path) {
+          grid[y][x].iswall = false;
+        }
+        return;
+      }
+
+      visited.add(`${x}-${y}`);
+
+      const neighbors = getUnvisitedNeighbors(grid, x, y, visited);
+      for (const neighbor of neighbors) {
+        stack.push({ ...neighbor, path: [...path, { x, y }] });
+      }
+    }
+  }
+
+  function getUnvisitedNeighbors(grid, x, y, visited) {
+    const neighbors = [];
+    const directions = [
+      { dx: -1, dy: 0 }, // Left
+      { dx: 1, dy: 0 }, // Right
+      { dx: 0, dy: -1 }, // Up
+      { dx: 0, dy: 1 }, // Down
+    ];
+
+    for (const direction of directions) {
+      const nx = x + direction.dx;
+      const ny = y + direction.dy;
+
+      if (isValidCell(grid, nx, ny) && !visited.has(`${nx}-${ny}`)) {
+        neighbors.push({ x: nx, y: ny });
+      }
+    }
+
+    return neighbors;
+  }
+
+  function isValidCell(grid, x, y) {
+    return (
+      x >= 0 &&
+      x < grid[0].length &&
+      y >= 0 &&
+      y < grid.length &&
+      !grid[y][x].iswall
+    );
   }
 
   function chooseOrientation(width, height) {
@@ -144,20 +234,6 @@ export const NavBar = () => {
     } else {
       return Math.random() < 0.5 ? "horizontal" : "vertical";
     }
-  }
-
-  function generateMaze() {
-    const newGrid = grid.map((row) => [...row]); // Create a copy of the existing grid
-    // Call the recursive division algorithm to generate the maze
-    recursiveDivisionMaze(
-      newGrid,
-      0,
-      0,
-      newGrid[0].length,
-      newGrid.length,
-      chooseOrientation(newGrid[0].length, newGrid.length)
-    );
-    setmaze(newGrid); // Update the maze grid state with the generated maze
   }
 
   const coordinates = [
@@ -340,7 +416,7 @@ export const NavBar = () => {
         break;
       case "RecursiveDivision":
         resetGridMaze();
-        generateMaze();
+        generateMaze(end.current.x, end.current.y);
         break;
     }
   }, [maze]);

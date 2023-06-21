@@ -2,6 +2,7 @@ import "./App.css";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Grid } from "./components/Grid/Grid";
 import { useParams } from "./components/context/Context";
+import Tutorial from "./components/Tutorial/Tutorial";
 
 function App() {
   const { error, seterror } = useParams();
@@ -18,6 +19,7 @@ function App() {
       }}
     >
       <NavBar></NavBar>
+      <Tutorial></Tutorial>
       <Grid></Grid>
     </div>
   );

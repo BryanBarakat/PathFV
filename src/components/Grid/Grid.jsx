@@ -1392,7 +1392,6 @@ export const Grid = () => {
           </div>
         );
       })}
-      <Tutorial></Tutorial>
       <ErrorMessage></ErrorMessage>
       <Metrics></Metrics>
       <Code></Code>

@@ -26,12 +26,12 @@ body {
     height: 0px;
   }
   50% {
-    width: 140px;
-    height: 95px;
+    width: 10vw;
+    height: 11vh;
   }
   100% {
-    width: 280px;
-    height: 190px;
+    width: 20vw;
+    height: 22vh;
   }
 }
 
@@ -173,6 +173,54 @@ body {
   }
 }
 
+@media only screen and (max-width: 1250px) {
+  .panel-container {
+    bottom: 0%;
+  }
+
+  .panel-container .drag-obj {
+    top: 3%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .panel-container .drag-obj2 {
+    top: 3%;
+    width: 12px;
+    height: 12px;
+  }
+
+  .main-content-panel h5 {
+    font-size: smaller;
+  }
+
+  .main-content-panel span h5 {
+    font-size: 10px;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 12px;
+    height: 12px;
+    padding: 6px 2px 6px 2px;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  .panel-container {
+    animation: none;
+    width: 300px;
+    height: 200px;
+  }
+
+  .panel-container .drag-obj {
+    top: 6%;
+  }
+
+  .panel-container .drag-obj2 {
+    top: 6%;
+  }
+}
+
 @media only screen and (max-width: 1200px) {
   .panel-container {
     bottom: 0%;
@@ -187,7 +235,7 @@ body {
 
 @media only screen and (max-width: 900px) {
   .panel-container {
-    top: 55%;
+    top: 70%;
     animation: none;
     width: 200px;
     height: 160px;
@@ -222,7 +270,7 @@ body {
 
 @media only screen and (max-width: 800px) {
   .panel-container {
-    top: 50%;
+    top: 65%;
   }
 
   .panel-container .nav-bar-panel img {
@@ -233,7 +281,7 @@ body {
 
 @media only screen and (max-width: 700px) {
   .panel-container {
-    top: 60%;
+    top: 74%;
     width: 160px;
     height: 120px;
   }
@@ -313,5 +361,72 @@ body {
 @media only screen and (max-height: 700px) {
   .panel-container {
     visibility: hidden;
+  }
+}
+
+@media only screen and (max-height: 1000px) and (max-width: 1100px) {
+  .panel-container {
+    top: 65%;
+  }
+}
+@media only screen and (max-height: 900px) and (max-width: 1100px) {
+  .panel-container {
+    top: 60%;
+  }
+}
+@media only screen and (max-height: 800px) and (max-width: 1100px) {
+  .panel-container {
+    top: 50%;
+  }
+}
+
+@media only screen and (max-height: 800px) and (max-width: 1100px) {
+  .panel-container {
+    top: 50%;
+  }
+}
+
+@media only screen and (min-width: 1850px) {
+  .panel-container .drag-obj {
+    top: 5%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .panel-container .drag-obj2 {
+    top: 5%;
+    width: 30px;
+    height: 30px;
+  }
+
+  .main-content-panel span h5 {
+    font-size: 16px;
+  }
+
+  .panel-container .nav-bar-panel img {
+    width: 25px;
+    height: 25px;
+    padding: 6px 4px 6px 4px;
+  }
+  .main-content-panel h5 {
+    font-size: 16px;
+  }
+  .panel-container {
+    animation: visiblePanelExtraJumbo 200ms linear forwards;
+  }
+}
+
+@keyframes visiblePanelExtraJumbo {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  50% {
+    width: 10vw;
+    height: 11vh;
+  }
+  100% {
+    width: 20vw;
+    height: 22vh;
   }
 }

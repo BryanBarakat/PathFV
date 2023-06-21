@@ -91,12 +91,12 @@
     height: 0px;
   }
   50% {
-    width: 140px;
-    height: 282px;
+    width: 10vw;
+    height: 30vh;
   }
   100% {
-    width: 280px;
-    height: 565px;
+    width: 20vw;
+    height: 60vh;
   }
 }
 
@@ -107,11 +107,11 @@
   }
   50% {
     width: 48vw;
-    height: 130px;
+    height: 30vh;
   }
   100% {
     width: 96vw;
-    height: 260px;
+    height: 30vh;
   }
 }
 
@@ -121,12 +121,12 @@
     height: 0px;
   }
   50% {
-    width: 140px;
-    height: 225px;
+    width: 10vw;
+    height: 30vh;
   }
   100% {
-    width: 280px;
-    height: 450px;
+    width: 20vw;
+    height: 58vh;
   }
 }
 
@@ -226,6 +226,12 @@
 }
 
 @media only screen and (max-height: 700px) {
+  .panel-container2 {
+    visibility: hidden;
+  }
+}
+
+@media only screen and (min-width: 1100px) and (max-height: 900px) {
   .panel-container2 {
     visibility: hidden;
   }

@@ -29,6 +29,9 @@ export const Code = () => {
       case "Dijkstra":
         setCodeSnippet(DijkstrasA);
         break;
+      case "AStar":
+        setCodeSnippet(null);
+        break;
       default:
         break;
     }

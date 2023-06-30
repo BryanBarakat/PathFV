@@ -637,6 +637,9 @@ export const NavBar = () => {
             <option className="option" value={"Dijkstra"}>
               Dijkstra's Shortest Path
             </option>
+            <option className="option" value={"AStar"}>
+              A* Search
+            </option>
           </select>
           <select
             onChange={(e) => {

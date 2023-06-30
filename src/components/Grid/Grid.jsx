@@ -247,6 +247,163 @@ export const Grid = () => {
     }
   };
 
+  function heuristic(a, b) {
+    // Manhattan distance heuristic
+    return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+  }
+
+  function AStar(graph, start, end, class_name, class_name2) {
+    let timeDateBefore = new Date(Date.now());
+    let val = speedMeter();
+    let visited = new Set();
+    let hashmap = {};
+    var response = [];
+    let numNode = 0;
+    let count = 0;
+    var counter = 0;
+    let time = 0;
+    var ending = end;
+    if (bomb.current.x != null && bomb.current.y != null) {
+      end = bomb.current;
+    }
+
+    hashmap[`${start.x}-${start.y}`] = true;
+
+    let openList = [[0, start]];
+
+    function getNeighbours(c, open, prevmap, hashmap, cost) {
+      const neighbors = [
+        { x: c.x - 1, y: c.y },
+        { x: c.x, y: c.y + 1 },
+        { x: c.x + 1, y: c.y },
+        { x: c.x, y: c.y - 1 },
+      ];
+      for (let neighbor of neighbors) {
+        const { x, y } = neighbor;
+
+        if (
+          x >= 0 &&
+          x < 50 &&
+          y >= 0 &&
+          y < 25 &&
+          !hashmap[`${x}-${y}`] &&
+          !graph[y][x].iswall
+        ) {
+          if (
+            !refArray[
+              bomb.current.x + bomb.current.y * 50
+            ].current.classList.contains(class_name)
+          ) {
+            count++;
+          } else {
+            counter++;
+          }
+          const g = cost + graph[y][x].weight;
+          const h = heuristic(neighbor, end);
+          const f = g + h;
+          open.unshift([f, neighbor]);
+          prevmap[`${x}-${y}`] = { ...c };
+          hashmap[`${x}-${y}`] = true;
+        }
+      }
+    }
+
+    while (openList.length > 0) {
+      openList.sort((a, b) => a[0] - b[0]);
+      const [cost, node] = openList.shift();
+
+      if (visited.has(`${node.x}-${node.y}`)) {
+        continue;
+      }
+
+      refArray[node.x + node.y * 50].current.style["transition-delay"] = `${
+        count * val[0]
+      }ms`;
+      refArray[node.x + node.y * 50].current.classList.add(class_name);
+      if (graph[node.y][node.x].weight > 1) {
+        refArray[node.x + node.y * 50].current.style[
+          "animation"
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * 3 * val[0]
+        }ms alternate 1 forwards running`;
+      } else {
+        refArray[node.x + node.y * 50].current.style[
+          "animation"
+        ] = `render-visited ${animationTime}s ease-out ${
+          count * val[0]
+        }ms alternate 1 forwards running`;
+      }
+
+      time = cost;
+      visited.add(`${node.x}-${node.y}`);
+
+      if (
+        bomb.current.x != null &&
+        node.x == bomb.current.x &&
+        node.y == bomb.current.y
+      ) {
+        response.push(node, count, visited, val);
+        numNode = count;
+        break;
+      }
+
+      if (node.x === end.x && node.y === end.y) {
+        response.push(node, count, visited, val);
+        numNode = count;
+        break;
+      }
+
+      getNeighbours(
+        node,
+        openList,
+        prev,
+        hashmap,
+        cost - heuristic(node, end) + heuristic(node, start)
+      );
+      count++;
+    }
+
+    let timeDateAfter = new Date(Date.now());
+    let timeTaken = timeDateAfter - timeDateBefore;
+
+    if (response.length === 0) {
+      response.push(false, count, visited, val);
+    }
+
+    if (bomb.current.x != null) {
+      end = ending;
+    }
+
+    let prevNode = response[0];
+
+    while (prevNode != null) {
+      const { x, y } = prevNode;
+      if (
+        bomb.current.x != null &&
+        prevNode.x === bomb.current.x &&
+        prevNode.y === bomb.current.y
+      ) {
+        break;
+      }
+      if (prevNode.x === start.x && prevNode.y === start.y) {
+        break;
+      }
+      refArray[x + y * 50].current.classList.add(class_name2);
+      refArray[x + y * 50].current.style["transition-delay"] = `${
+        counter * val[0]
+      }ms`;
+      refArray[x + y * 50].current.style[
+        "animation"
+      ] = `render-path ${animationTime}s ease-out ${
+        counter * val[0]
+      }ms alternate 1 forwards running`;
+      prevNode = prev[`${x}-${y}`];
+      counter++;
+    }
+
+    return response;
+  }
+
   function Dijkstra(graph, start, end, class_name, class_name2) {
     let timeDateBefore = new Date(Date.now());
     let val = speedMeter();
@@ -1208,6 +1365,17 @@ export const Grid = () => {
       }
     } else if (algo == "Dijkstra") {
       let result = Dijkstra(
+        grid,
+        start.current,
+        end.current,
+        "visited",
+        "visited2"
+      );
+      if (bomb.current.x == null && bomb.current.y == null) {
+        pathApproval(result, val[0]);
+      }
+    } else if (algo == "AStar") {
+      let result = AStar(
         grid,
         start.current,
         end.current,

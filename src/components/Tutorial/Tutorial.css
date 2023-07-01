@@ -33,12 +33,7 @@
 }
 
 .container-tut h4 {
-  position: absolute;
-  right: 5%;
-  top: 5%;
-  font-size: 16px;
-  font-weight: 300;
-  color: #303030;
+  visibility: hidden;
 }
 
 .container-tut .sub-container1 h1,
@@ -182,18 +177,18 @@
 
 @media only screen and (max-width: 1000px) {
   .container-tut div {
-    font-size: 1.2rem;
+    font-size: 1 rem;
     line-height: 2em;
     width: 500px;
     height: 700px;
   }
 
   .container-tut .skip {
-    top: 83%;
+    top: 80%;
   }
 
   .buttons .navigate {
-    top: 83%;
+    top: 80%;
   }
 
   .image-page-1,
@@ -209,6 +204,49 @@
     height: 120px;
   }
 }
+@media only screen and (max-width: 1450px) {
+  .container-tut div {
+    font-size: 1rem;
+    line-height: 2em;
+  }
+
+  .container-tut .skip {
+    top: 80%;
+  }
+
+  .buttons .navigate {
+    top: 80%;
+  }
+
+  .container-tut h4 {
+    font-size: 13px;
+  }
+
+  .container-tut .sub-container7 .pathfv-tit {
+    font-size: 36px;
+  }
+
+  .container-tut .sub-container2 {
+    font-size: 0.7rem;
+  }
+
+  .container-tut .sub-container5,
+  .container-tut .sub-container6 {
+    font-size: 0.6rem;
+  }
+
+  .container-tut .sub-container3 {
+    font-size: 0.7rem;
+  }
+
+  .container-tut .sub-container4 {
+    font-size: 0.75rem;
+  }
+
+  .container-tut .sub-container1 {
+    font-size: 0.8rem;
+  }
+}
 
 @media only screen and (max-width: 900px) {
   .container-tut div {
@@ -220,11 +258,11 @@
   }
 
   .container-tut .skip {
-    top: 73%;
+    top: 75%;
   }
 
   .buttons .navigate {
-    top: 73%;
+    top: 75%;
   }
 
   .buttons .navigate .prev-but {
@@ -542,7 +580,7 @@
   }
 }
 
-@media only screen and (max-height: 900px) and (min-width: 700px) {
+@media only screen and (max-height: 700px) and (min-width: 700px) {
   .container-tut div {
     font-size: 0.8rem;
     line-height: 1.7em;
@@ -630,7 +668,7 @@
   }
 }
 
-@media only screen and (max-height: 900px) and (max-width: 699px) {
+@media only screen and (max-height: 700px) and (max-width: 699px) {
   .container-tut .sub-container1,
   .container-tut .sub-container2,
   .container-tut .sub-container3,
@@ -698,10 +736,10 @@
   }
 
   .container-tut .skip {
-    top: 70%;
+    top: 80%;
   }
 
   .buttons .navigate {
-    top: 70%;
+    top: 80%;
   }
 }

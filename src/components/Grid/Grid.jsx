@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Tutorial } from "../Tutorial/Tutorial";
 import { ErrorMessage } from "../ErrorMessage/ErrorMessage";
 import { Panel } from "../Panel/Panel";
+import { Code } from "../Panel/Code";
 import { useParams } from "../context/Context";
 import Start from "../../assets/right-arrow_neo.png";
 import End from "../../assets/button.png";
@@ -9,7 +9,6 @@ import Weight from "../../assets/kettlebell.png";
 import Cube from "../../assets/square.png";
 import bombs from "../../assets/round-bomb.png";
 import erasers from "../../assets/eraser.png";
-import { Code } from "../Panel/Code";
 import { Metrics } from "../Metrics/Metrics";
 import "./Grid.css";
 

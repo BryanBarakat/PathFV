@@ -270,12 +270,7 @@ body {
 
 @media only screen and (max-width: 800px) {
   .panel-container {
-    top: 65%;
-  }
-
-  .panel-container .nav-bar-panel img {
-    width: 10px;
-    height: 10px;
+    visibility: hidden;
   }
 }
 

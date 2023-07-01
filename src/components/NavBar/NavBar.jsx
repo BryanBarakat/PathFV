@@ -625,21 +625,21 @@ export const NavBar = () => {
             <option className="option" value={""}>
               Algorithms
             </option>
-            <option className="option" value={"DFS"}>
-              Depth-First Search
-            </option>
-            <option className="option" value={"BFS"}>
-              Breadth-First Search
-            </option>
             <option className="option" value={"Bidirectional"}>
               Bidirectional Swarm Algorithm
             </option>
             <option className="option" value={"Dijkstra"}>
               Dijkstra's Shortest Path
             </option>
-            <option className="option" value={"AStar"}>
-              A* Search
+            <option className="option" value={"DFS"}>
+              Depth-First Search
             </option>
+            <option className="option" value={"BFS"}>
+              Breadth-First Search
+            </option>
+            {/* <option className="option" value={"AStar"}>
+              A* Search
+            </option> */}
           </select>
           <select
             onChange={(e) => {
@@ -651,9 +651,9 @@ export const NavBar = () => {
             <option className="option" value={""}>
               Mazes & Patterns
             </option>
-            <option className="option" value={"RecursiveDivision"}>
+            {/* <option className="option" value={"RecursiveDivision"}>
               Recursive Division
-            </option>
+            </option> */}
             <option className="option" value={"BasicMaze"}>
               Basic Random Maze
             </option>
